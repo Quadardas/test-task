@@ -1,18 +1,27 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div class="container">
+    <div
+      class="talon-list"
+      v-for="(talon, id) in talons"
+      :key="id"
+      :talon="talon"
+    >
+      <div class="talon">
+        <div class="talon-type">{{ talon.type }}</div>
+        <div class="talon-id">{{ talon.id }}</div>
+        <div class="talon-time">{{ talon.time }}</div>
+      </div>
+    </div>
+    <button>Create</button>
   </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+<script lang="ts" setup>
+import { Vue } from "vue-class-component";
+import { ITalon } from "@/models/talon.model";
+import { ref } from "vue";
+import { TALON } from "@/constants/talon.const";
 
-@Options({
-  components: {
-    HelloWorld,
-  },
-})
-export default class HomeView extends Vue {}
+const talons = ref(TALON);
+console.log(talons.value);
 </script>
