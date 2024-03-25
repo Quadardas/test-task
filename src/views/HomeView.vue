@@ -1,15 +1,15 @@
 <template>
   <div class="container">
     <div
-      class="talon-list"
-      v-for="(talon, id) in talons"
+      class="ticket-list"
+      v-for="(ticket, id) in tickets"
       :key="id"
-      :talon="talon"
+      :ticket="ticket"
     >
-      <div class="talon">
-        <div class="talon-type">{{ talon.type }}</div>
-        <div class="talon-id">{{ talon.id }}</div>
-        <div class="talon-time">{{ talon.time }}</div>
+      <div class="ticket">
+        <div class="ticket-type">{{ ticket.type }}</div>
+        <div class="ticket-id">{{ ticket.id }}</div>
+        <div class="ticket-time">{{ ticket.time }}</div>
       </div>
     </div>
     <button>Create</button>
@@ -17,11 +17,18 @@
 </template>
 
 <script lang="ts" setup>
-import { Vue } from "vue-class-component";
-import { ITalon } from "@/models/talon.model";
 import { ref } from "vue";
-import { TALON } from "@/constants/talon.const";
+import { TICKET } from "@/constants/ticket.const";
 
-const talons = ref(TALON);
-console.log(talons.value);
+const tickets = JSON.parse(localStorage.getItem("tickets") || "[]");
+
+console.log(tickets);
 </script>
+
+<style lang="scss" scoped>
+.ticket {
+  margin: 10px;
+  border: 1px solid black;
+  padding: 5px;
+}
+</style>
