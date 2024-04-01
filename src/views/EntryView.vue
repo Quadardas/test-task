@@ -13,13 +13,12 @@
 <script lang="ts" setup>
 import { onBeforeMount, ref } from "vue";
 import { ITicket } from "@/models/ticket.model";
-import { addMinute, format } from "@formkit/tempo";
+import { addMinute, format, parse } from "@formkit/tempo";
 
 const props = defineProps<{
   ticket: ITicket;
 }>();
 const date = new Date();
-// const talonTime = format(date, { time: "short" }, "ru");
 
 const tickets = ref<Array<ITicket>>([]);
 const selectedType = ref<string>("");
@@ -32,7 +31,7 @@ function createTicket() {
       ? tickets.value[tickets.value.length - 1].id + 1
       : 0,
     type: selectedType.value,
-    time: format(newTime, { time: "short" }),
+    time: newTime,
   };
 
   tickets.value.push(newTicket);

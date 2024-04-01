@@ -1,5 +1,5 @@
 export interface ITicket {
   id: number;
   type: string;
-  time: string;
+  time: Date;
 }
