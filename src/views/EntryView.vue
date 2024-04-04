@@ -27,8 +27,8 @@ function createTicket() {
   const newTime = addMinute(new Date(), 1);
 
   const newTicket: ITicket = {
-    id: tickets.value.length
-      ? tickets.value[tickets.value.length - 1].id + 1
+    id: tickets.value?.length
+      ? tickets.value?.[tickets.value?.length - 1].id + 1
       : 0,
     type: selectedType.value,
     time: newTime,
