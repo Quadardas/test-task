@@ -13,6 +13,7 @@
 <script lang="ts" setup>
 import { onBeforeMount, ref } from "vue";
 import { ITicket } from "@/models/ticket.model";
+import { Ticket } from "@/services/ticket.service";
 import { addMinute, format, parse } from "@formkit/tempo";
 
 const props = defineProps<{
@@ -25,19 +26,9 @@ const selectedType = ref<string>("");
 
 function createTicket() {
   const newTime = addMinute(new Date(), 1);
-
-  const newTicket: ITicket = {
-    id: tickets.value?.length
-      ? tickets.value?.[tickets.value?.length - 1].id + 1
-      : 0,
-    type: selectedType.value,
-    time: newTime,
-  };
-
-  tickets.value.push(newTicket);
-  localStorage.setItem("tickets", JSON.stringify(tickets.value));
+  const ticketInstanse = new Ticket();
+  ticketInstanse.createTicket(selectedType.value, newTime);
 }
-// console.log(addMinute(parse(talonTime, "HH:mm"), 5));
 
 onBeforeMount(() => {
   tickets.value = JSON.parse(localStorage.getItem("tickets") || "[]");
