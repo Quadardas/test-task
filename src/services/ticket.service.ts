@@ -35,7 +35,7 @@ export class Ticket {
   public getTicketTime(ticketCount: number): number {
     let time;
     if (ticketCount < 2) {
-      return 100;
+      return 1000;
     } else {
       return 10000;
     }

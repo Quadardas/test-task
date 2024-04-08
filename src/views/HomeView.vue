@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <Modal v-show="isVisible" />
     <div class="ticket-list">
       <TicketItem
         v-for="(ticket, id) in ticketsService.getTickets"
@@ -9,7 +10,6 @@
         @delete="onDelete"
       />
     </div>
-    <button>Create</button>
   </div>
 </template>
 
@@ -18,13 +18,20 @@ import { onBeforeMount, onBeforeUnmount, onMounted, provide, ref } from "vue";
 import { ITicket } from "@/models/ticket.model";
 import TicketItem from "@/components/TicketItem.vue";
 import { Ticket } from "@/services/ticket.service";
+import Modal from "@/components/modals/Modal.vue";
 
 const ticketsService = new Ticket();
+let isVisible = false;
 provide("ticketService", ticketsService);
 
 function onDelete(id: number) {
-  ticketsService.deleteTicket(id);
+  isVisible = true;
+  const showModal = setTimeout(() => {
+    isVisible = false;
+    ticketsService.deleteTicket(id);
+  }, 500);
 }
+
 const tickets = ref();
 onBeforeMount(() => {
   ticketsService.initTickets();
