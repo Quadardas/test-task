@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <Modal v-show="isVisible" />
+    <Modal v-model="isVisible" v-if="isVisible">
+      <!-- <p>талон № {{ ticketsService.getTicketId }}</p> -->
+    </Modal>
     <div class="ticket-list">
       <TicketItem
         v-for="(ticket, id) in ticketsService.getTickets"
@@ -21,15 +23,19 @@ import { Ticket } from "@/services/ticket.service";
 import Modal from "@/components/modals/Modal.vue";
 
 const ticketsService = new Ticket();
-let isVisible = false;
+
+let isVisible = ref(false);
 provide("ticketService", ticketsService);
 
 function onDelete(id: number) {
-  isVisible = true;
+  isVisible.value = true;
+  console.log(isVisible, "aboba");
+
   const showModal = setTimeout(() => {
-    isVisible = false;
+    isVisible.value = false;
+    console.log(isVisible, "biba");
     ticketsService.deleteTicket(id);
-  }, 500);
+  }, 5000);
 }
 
 const tickets = ref();

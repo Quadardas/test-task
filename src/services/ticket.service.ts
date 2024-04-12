@@ -7,6 +7,9 @@ export class Ticket {
   public get getTickets(): Array<ITicket> {
     return this.tickets.value;
   }
+  constructor() {
+    this.initTickets();
+  }
 
   public initTickets(): void {
     const ticketsFromLS = localStorage.getItem("tickets");
@@ -23,6 +26,7 @@ export class Ticket {
       time: newTime,
     };
     this.tickets.value?.push(newTicket);
+
     localStorage.setItem("tickets", JSON.stringify(this.tickets.value));
   }
   public deleteTicket(id: number): void {
@@ -32,6 +36,11 @@ export class Ticket {
     localStorage.setItem("tickets", JSON.stringify(this.tickets.value));
   }
 
+  public getTicketId(id: number) {
+    return (this.tickets.value = this.tickets.value?.filter(
+      (ticket: ITicket) => ticket.id == id
+    ));
+  }
   public getTicketTime(ticketCount: number): number {
     let time;
     if (ticketCount < 2) {
