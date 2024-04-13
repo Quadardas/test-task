@@ -17,6 +17,7 @@ export class Ticket {
       this.tickets.value = JSON.parse(ticketsFromLS);
     }
   }
+
   public createTicket(selectedType: string, newTime: Date): void {
     const newTicket: ITicket = {
       id: this.tickets.value?.length
@@ -29,24 +30,33 @@ export class Ticket {
 
     localStorage.setItem("tickets", JSON.stringify(this.tickets.value));
   }
+
   public deleteTicket(id: number): void {
     this.tickets.value = this.tickets.value?.filter(
       (ticket: ITicket) => ticket.id != id
     );
+    // console.log(this.tickets.value);
+
     localStorage.setItem("tickets", JSON.stringify(this.tickets.value));
   }
 
-  public getTicketId(id: number) {
-    return (this.tickets.value = this.tickets.value?.filter(
-      (ticket: ITicket) => ticket.id == id
-    ));
+  // public getTicketId(id: number) {
+  //   return (this.tickets.value = this.tickets.value?.filter(
+  //     (ticket: ITicket) => ticket.id == id
+  //   ));
+  // }
+
+  public getLastTicketTime() {
+    const lastTicket = this.tickets.value[this.tickets.value.length - 1];
+    return lastTicket.time;
   }
+
   public getTicketTime(ticketCount: number): number {
     let time;
     if (ticketCount < 2) {
-      return 1000;
+      return 5000;
     } else {
-      return 10000;
+      return 60000;
     }
   }
 }

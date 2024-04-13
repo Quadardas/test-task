@@ -14,8 +14,8 @@
 import { onBeforeMount, ref } from "vue";
 import { ITicket } from "@/models/ticket.model";
 import { Ticket } from "@/services/ticket.service";
-import { addMinute, format, parse } from "@formkit/tempo";
-
+import { addMinute, addSecond, format, parse } from "@formkit/tempo";
+let addTime;
 const props = defineProps<{
   ticket: ITicket;
 }>();
@@ -25,9 +25,17 @@ const tickets = ref<Array<ITicket>>([]);
 const selectedType = ref<string>("");
 
 function createTicket() {
-  const newTime = addMinute(new Date(), 1);
   const ticketInstanse = new Ticket();
-  ticketInstanse.createTicket(selectedType.value, newTime);
+
+  if (tickets.value.length < 1) {
+    addTime = addSecond(new Date(), 5);
+  } else {
+    addTime = addMinute(ticketInstanse.getLastTicketTime(), 1);
+  }
+
+  ticketInstanse.createTicket(selectedType.value, addTime);
+
+  tickets.value = JSON.parse(localStorage.getItem("tickets") || "[]");
 }
 
 onBeforeMount(() => {

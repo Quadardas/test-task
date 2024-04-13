@@ -29,11 +29,9 @@ provide("ticketService", ticketsService);
 
 function onDelete(id: number) {
   isVisible.value = true;
-  console.log(isVisible, "aboba");
 
   const showModal = setTimeout(() => {
     isVisible.value = false;
-    console.log(isVisible, "biba");
     ticketsService.deleteTicket(id);
   }, 5000);
 }

@@ -25,6 +25,6 @@ const emits = defineEmits<{
 onMounted(() => {
   const timerId = setTimeout(() => {
     emits("delete", ticket.id);
-  }, ticketService?.getTicketTime(ticketCount));
+  }, ticketService?.getTicketTime(ticketService.getTickets.length));
 });
 </script>
