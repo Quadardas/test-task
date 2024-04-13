@@ -23,20 +23,19 @@ import { Ticket } from "@/services/ticket.service";
 import Modal from "@/components/modals/Modal.vue";
 
 const ticketsService = new Ticket();
-
-let isVisible = ref(false);
+const tickets = ref();
+let isVisible = false;
 provide("ticketService", ticketsService);
 
 function onDelete(id: number) {
-  isVisible.value = true;
+  // isVisible.value = true;
 
   const showModal = setTimeout(() => {
-    isVisible.value = false;
+    // isVisible.value = false;
     ticketsService.deleteTicket(id);
   }, 5000);
 }
 
-const tickets = ref();
 onBeforeMount(() => {
   ticketsService.initTickets();
 });

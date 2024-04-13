@@ -11,9 +11,10 @@
 import { ITicket } from "@/models/ticket.model";
 import { Ticket } from "@/services/ticket.service";
 import { format } from "@formkit/tempo";
-import { inject, onMounted, ref } from "vue";
+import { inject, onMounted, onUpdated, ref } from "vue";
 
 const ticketService = inject<Ticket>("ticketService");
+const timerId = ref<number>();
 //деструктуризация пропсов ниже)
 const { ticket, ticketCount = 0 } = defineProps<{
   ticket: ITicket;
@@ -23,8 +24,18 @@ const emits = defineEmits<{
   (e: "delete", value: number): void;
 }>();
 onMounted(() => {
-  const timerId = setTimeout(() => {
+  timerId.value = setTimeout(() => {
     emits("delete", ticket.id);
-  }, ticketService?.getTicketTime(ticketService.getTickets.length));
+  }, ticketService?.getTicketTime(ticket));
+  // console.log(ticketService?.getTicketTime(ticket));
+});
+onUpdated(() => {
+  clearTimeout(timerId.value);
+  timerId.value = setTimeout(() => {
+    emits("delete", ticket.id);
+    // console.log("таймаут есть");
+  }, ticketService?.getTicketTime(ticket));
+
+  // console.log(ticketService?.getTicketTime(ticket));
 });
 </script>

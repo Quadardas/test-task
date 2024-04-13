@@ -30,7 +30,8 @@ function createTicket() {
   if (tickets.value.length < 1) {
     addTime = addSecond(new Date(), 5);
   } else {
-    addTime = addMinute(ticketInstanse.getLastTicketTime(), 1);
+    addTime = addSecond(new Date(), 30);
+    // addTime = addMinute(ticketInstanse.getLastTicketTime(), 1);
   }
 
   ticketInstanse.createTicket(selectedType.value, addTime);
