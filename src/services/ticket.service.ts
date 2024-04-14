@@ -31,20 +31,18 @@ export class Ticket {
   }
 
   public deleteTicket(id: number): void {
-    // console.log(id, this.tickets.value);
-
     this.tickets.value = this.tickets.value?.filter(
       (ticket: ITicket) => ticket.id != id
     );
-    // console.log(this.tickets.value);
-
     localStorage.setItem("tickets", JSON.stringify(this.tickets.value));
   }
+
   // public getTicketId(id: number) {
   //   return (this.tickets.value = this.tickets.value?.filter(
   //     (ticket: ITicket) => ticket.id == id
   //   ));
   // }
+
   public getLastTicketTime() {
     const lastTicket = this.tickets.value[this.tickets.value.length - 1];
     return lastTicket.time;
@@ -53,9 +51,6 @@ export class Ticket {
   public getTicketTime(ticket: ITicket): number {
     const aboba = new Date();
     const ticketDate = new Date(ticket.time);
-    // console.log(ticket.time);
-    console.log(ticketDate.getTime(), aboba.getTime());
-
     return ticketDate.getTime() - aboba.getTime();
   }
 }

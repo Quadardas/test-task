@@ -5,10 +5,9 @@
     </Modal>
     <div class="ticket-list">
       <TicketItem
-        v-for="(ticket, id) in ticketsService.getTickets"
-        :key="id"
+        v-for="ticket in ticketsService.getTickets"
+        :key="ticket.id"
         :ticket="ticket"
-        :ticket-count="tickets?.length + 1"
         @delete="onDelete"
       />
     </div>
@@ -24,14 +23,14 @@ import Modal from "@/components/modals/Modal.vue";
 
 const ticketsService = new Ticket();
 const tickets = ref();
-let isVisible = false;
+let isVisible = ref(false);
 provide("ticketService", ticketsService);
 
 function onDelete(id: number) {
-  // isVisible.value = true;
+  isVisible.value = true;
 
   const showModal = setTimeout(() => {
-    // isVisible.value = false;
+    isVisible.value = false;
     ticketsService.deleteTicket(id);
   }, 5000);
 }
